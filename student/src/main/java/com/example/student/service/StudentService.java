@@ -12,7 +12,7 @@ import com.example.student.model.Student;
 public class StudentService {
 	
 	@Autowired
-	public StudentRepo studentRepo;
+	private StudentRepo studentRepo;
 	
 	public List<Student> getStudentList(){
 		return studentRepo.findAll();

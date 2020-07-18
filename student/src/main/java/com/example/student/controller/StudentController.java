@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.student.model.Student;
+import com.example.student.model.StudentWrapper;
 import com.example.student.service.StudentService;
 import com.example.student.util.StudentUtil;
 
@@ -17,16 +18,21 @@ import net.sf.jasperreports.engine.JRException;
 public class StudentController {
 
 	@Autowired
-	public StudentService studSer;
+	private StudentService studSer;
 	
 	@Autowired
-	public StudentUtil studUtil;
+	private StudentUtil studUtil;
 
+	public StudentWrapper students;
+	
 	@RequestMapping("/getStudentReport")
-	public void getStudentReport() throws JRException {
+	public StudentWrapper getStudentReport() throws JRException {
 		List<Student> studentListForReport = new ArrayList();
 		studentListForReport = studSer.getStudentList();
+		students= new StudentWrapper(studentListForReport);
 		studUtil.getReport(studentListForReport);
+		return students;
+		
 	}
 	
 	@RequestMapping("/test")
